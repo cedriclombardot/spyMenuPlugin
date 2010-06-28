@@ -1,0 +1,32 @@
+generator:
+  class:              sfPropelAdminGenerator
+  param:
+    model_class:      menu
+    theme:            default
+    
+    fields:
+      nom:
+        name: Nom du menu
+      menu_parent:
+        name: Menu Parent
+      url:
+        name: cible du menu
+      pages_id:
+        name: Lien vers une page
+      icon:
+        name: Chemin pour une icone de menu
+            
+    list:
+      title: Administration du menu du site
+      display: [ =nom,  menu_parent ]
+      object_actions:
+        _edit:  ~
+        _delete: ~
+
+    
+    edit:
+      title: Modification du menu  <small><i>[%%nom%%]</i></small>
+      fields:
+        pages_id:
+          params:
+            include_blank: true

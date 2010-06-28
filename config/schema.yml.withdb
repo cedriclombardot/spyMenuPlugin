@@ -1,0 +1,10 @@
+propel:
+  _attributes:      { package: plugins.spyMenuPlugin.lib.model }
+  menu:
+    _attributes: { phpName: menu }
+    id: ~
+    nom:  { type: varchar, size: 255, index: unique, required: true }
+    menu_parent:  { type: integer, foreignTable: menu, foreignReference: id, onDelete: setNull}
+    url: { type: varchar, size: 888 }
+#    pages_id:  { type: integer, foreignTable: pages, foreignReference: id, onDelete: cascade} #For the module sfEasyPagesPlugin 
+    icon:  { type: varchar, size: 555 }

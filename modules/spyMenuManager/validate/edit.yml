@@ -1,0 +1,8 @@
+methods:
+  post:
+    - "menu{nom}"
+
+names:
+  menu{nom}:
+    required: true
+    required_msg: Vous devez mettre un nom

@@ -1,0 +1,169 @@
+= spyMenuPlugin =
+
+# THIS DOC AND spyTreeMenu Have to be rewriteen
+
+With this plugin you could create menu into a menu.yml or into a database
+
+== How to install ==
+
+{{{
+  symfony plugin-install http://plugins.symfony-project.com/spyMenuPlugin
+}}}
+
+===  Where you want to see the menu ===
+
+Add into view.yml
+{{{
+	stylesheets:    [ spyMenuIndex/menu ]
+}}}
+And
+{{{
+	javascripts:    [ spyMenuIndex/menu, spyMenuIndex/fsmenu ]
+}}}
+=== Administration with DB ===
+
+To activate the plugin add into you admin apps for the settings.yml
+
+{{{
+  enabled_modules:        [default, ..., spyMenuManager]
+}}}
+
+=== Component with DB ===
+
+setting.yml
+{{{
+  enabled_modules:        [default, ..., spyDbMenu]
+}}}
+
+Layout.php
+{{{
+  <?php include_component('spyDbMenu','index'); ?>
+}}}
+
+
+
+
+=== spyMenuManager ===
+
+The spyMenuManager allow you to manage the DB module
+
+=== menu.yml ===
+
+If you want to use the menu.yml configuration create your menu.yml into your apps config directory
+
+The structures is the next one :
+
+{{{
+all:
+  {{MENU_UNIQUE_NAME}}:
+    nom: {{MENU_TITLE}}
+    help: {{MENU_HELP_MSG}} #For the spyMenuIndex module describe aftee (optionnal)
+    url: {{INTERNAL_URI}} #Intrenal uri for url_for()
+    icon: {{ICON_PATH}} #For an image_tag (visibility depends of your renderind) You'have got some icon into the icon folder of this module
+    credentials: {{CREDENTIALS}} # Optionnal [ cred1, cred2 ]
+    childs:
+      {{LIKE_ALL}}
+ }}}
+ 
+ == spyMenuIndex ==
+ 
+ If you want to have a view for your background with a table off the list of subActions for this module,
+ you can use spyMenu
+ 
+ The page spyMenu show all of the menu and spyMenu/start_by show the menu starting at the level of start_by
+ 
+ == Creating our view ==
+ 
+ If you want to create our module extend of spyMenu
+ Like for show the structure of the catégories of your website or creating an other submenu to set into
+  an other place of your website do like that :
+  
+ 
+ === Exemple 1 : Creating An expandable TreeMenu ===
+ 
+ Into your template
+ 
+ {{{
+   include_components('spyTreeMenu','menu',array('class'=>'myMenuConfigurationClass');
+ }}}
+ 
+ Into the lib directory of your app or module if it's only for one module
+ Create the file myMenuConfigurationClass.class.php
+ 
+ With this code :
+ 
+ {{{
+ /*
+ * The treeMenu in this demo is stored into A DB because 
+ * treeMenuConfig is extended of DbMenuConfig
+ */
+ class myMenuConfigurationClass extends treeMenuConfig {
+ 	public function getMenusAtLevel($level){
+ 		$c=new Criteria();
+		$c->add({{MY_CLASS_PEER}}::{{PARENT_ID}},$level);
+		$liste={{MY_CLASS_PEER}}::doSelect($c);
+		$menus=array();
+		
+		foreach($liste as $v){
+			$menus['menu_'.$this->current]['nom']=$v->getTitre();
+			$menus['menu_'.$this->current]['url']='{{BASE_URL}}id='.$v->getId();
+			
+			$menus['menu_'.$this->current]['credentials']=array();
+			$menus['menu_'.$this->current]['icon']='';
+			$menus['menu_'.$this->current]['childs']=$this->getMenusAtLevel($v->getId());
+			$this->current++;
+		}
+		return $menus;
+ 	}
+ }
+ 
+ 
+ 
+ }}}
+ 
+ If you want to change the template set 
+ 
+{{{
+ class myMenuConfigurationClass extends treeMenuConfig {
+	 public function getTemplateClass(){
+			return '{{MY_PERSONNAL_CLASS}}';
+		}
+	...
+}
+
+class {{MY_PERSONNAL_CLASS}} extends treeMenu {
+	public function renderHtml(){
+			/*
+			Create here your rendering
+			*/
+	}
+
+}
+}}}
+
+To manage the rights if you want to hide a module if the user haven't got the rights, for that you must define the credentials
+And after set 
+
+{{{
+class {{MY_PERSONNAL_CLASS}} extends treeMenu {
+	public function isAllowed(){
+		/*
+		Return true or false
+		*/
+		return true;
+	}
+	...
+}
+}}}
+
+== Why my menu is not actualisated ? ==
+
+The menu can be saved into your session when it's into a BDD
+
+Try to pass the ?recalcul=1 into you url
+
+
+ 
+ 
+ 
+ 

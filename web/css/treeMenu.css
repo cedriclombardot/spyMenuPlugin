@@ -1,0 +1,26 @@
+.open{
+list-style-image:url(../images/folder_green_open.png);
+}
+
+.item{
+list-style-image:url(../images/file_broken.png);
+}
+
+.close{
+list-style-image:url(../images/folder_yellow.png);
+}
+#listMenuRootTree A{
+color:black;
+text-decoration:none;
+font-size:10px;
+}
+#listMenuRootTree, #listMenuRootTree ul{
+margin-left:25px;
+padding-left:2px;
+}
+.menu_tree{
+border-right:1px solid #ccc;
+padding-right:10px;
+margin-right:10px;
+width:200px;
+}

@@ -1,0 +1,4 @@
+config/menu.yml:
+  class:    sfMenuConfigHandler
+  file: %SF_PLUGINS_DIR%/spyMenuPlugin/lib/config/sfMenuConfigHandler.class.php
+  

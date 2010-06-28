@@ -1,0 +1,3 @@
+spyMenuIndex:
+  url: menu/:start_by
+  param: { module: spyMenuIndex, action: index }

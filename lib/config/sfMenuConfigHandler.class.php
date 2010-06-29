@@ -37,18 +37,26 @@ class sfMenuConfigHandler extends sfYamlConfigHandler{
 	    $mconfig=$mconfig['all'];
 		
 	    foreach($mconfig as $k=>$row){
-	    
-	    	$row['nom']=isset($row['nom'])?$row['nom']:'';
-	    	$row['url']=isset($row['url'])?$row['url']:'#';
-	    	$row['icon']=isset($row['icon'])?$row['icon']:'';
-	    	$row['credentials']=isset($row['credentials'])?$row['credentials']:array();
-	    	$row['childs']=isset($row['childs'])?$row['childs']:null;
-	    	$row['help']=isset($row['help'])?$row['help']:null;
-	    	$data .="\$sfMenu->addChild('{$k}','{$row['nom']}','{$row['url']}','{$row['icon']}',{$this->asPhp($row['credentials'])},{$this->asPhp($row['childs'])},'{$row['help']}');\n";
-	    	
+	    	$data .=$this->getChildData($row,$k);
 	    }
 	    
 	   return $data;
+	}
+	protected function getChildData($row,$key, $parent='sfMenu'){
+		$data='';
+		$row['nom']=isset($row['nom'])?addslashes($row['nom']):'';
+    	$row['url']=isset($row['url'])?$row['url']:'#';
+    	$row['icon']=isset($row['icon'])?$row['icon']:'';
+    	$row['credentials']=isset($row['credentials'])?$row['credentials']:array();
+    	$row['childs']=isset($row['childs'])?$row['childs']:null;
+    	$row['help']=isset($row['help'])?$row['help']:null;
+    	$data .="\${$key}=\${$parent}->addChild('{$key}','{$row['nom']}','{$row['url']}','{$row['icon']}',{$this->asPhp($row['credentials'])},{$this->asPhp(array())},'{$row['help']}');\n";
+	    if(count($row['childs'])>0){
+	    	foreach($row['childs'] as $k=>$child){
+	    		$data .= $this->getChildData($child,$k,$key);
+	    	}
+    	}
+    	return $data;
 	}
 	public static function asPhp($variable)
 	  {

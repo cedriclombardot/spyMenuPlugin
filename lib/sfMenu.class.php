@@ -444,6 +444,14 @@ class sfMenu {
 	}
 	
 	/**
+	 * @return sfMenu
+	 */
+	public function setRenderer(sfMenuRenderer $renderer){
+		$this->renderer=$renderer;
+		return $this;
+	}
+	
+	/**
 	 * @return sfMenuRenderer
 	 */
 	public function getRenderer(){

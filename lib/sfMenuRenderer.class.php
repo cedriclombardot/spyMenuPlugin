@@ -25,7 +25,7 @@ class sfMenuRenderer{
 			$s='<ul class="'.$this->getsfMenu()->getCssClass().'" id="'.$this->getsfMenu()->getCssId().'">';
 			if($this->getsfMenu()->hasChilds()){
 				foreach($this->getsfMenu()->getChilds() as $child){
-					$child->setRendererClass(get_class($this));
+					$child->setRenderer($this);
 					$s.=$child->renderHtml();
 				}
 			}
@@ -48,7 +48,7 @@ class sfMenuRenderer{
 				if($this->getsfMenu()->hasChilds()){
 					$s.='<ul>';
 					foreach($this->getsfMenu()->getChilds() as $child){
-						$child->setRendererClass(get_class($this));
+						$child->setRenderer($this);
 						$s.=$child->renderHtml();
 					}
 					$s.='</ul>';
@@ -64,7 +64,7 @@ class sfMenuRenderer{
 			if($this->getsfMenu()->hasChilds()){
 				foreach($this->getsfMenu()->getChilds() as $child){
 					if(!$this->getsfMenu()->isRootDisplayed()){
-						$child->setRendererClass(get_class($this));
+						$child->setRenderer($this);
 						$s.=$child->renderHtml();
 					}
 				}

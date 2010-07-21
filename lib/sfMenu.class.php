@@ -270,7 +270,7 @@ class sfMenu {
 		if(strstr($this->url,'@'))
 			return $this->url;
 		if(!strstr($this->url,'/'))
-			return $this->url.'/index';
+			return '@default_index?module='.$this->url;
 		return $this->url;
 	}
 	

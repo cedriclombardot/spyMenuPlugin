@@ -10,7 +10,12 @@
 class spyMenuIndexActions extends sfActions
 {
 
-	public function executeIndex() {
+     /**
+      * Executes index action
+      *
+      * @param sfWebRequest $request A request object
+      */
+	public function executeIndex(sfWebRequest $request) {
 	
 	}
 }

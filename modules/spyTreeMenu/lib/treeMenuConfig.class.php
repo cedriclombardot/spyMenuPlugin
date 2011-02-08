@@ -3,6 +3,9 @@
 class treeMenuConfig extends DbMenuConfig{
 var $current=0;
 	
+    /**
+     * @see DbMenuConfig::getOutpoutInstance()
+     */
 	protected function getOutpoutInstance(){
 		return new treeMenu();
 	}
@@ -11,9 +14,16 @@ var $current=0;
 }
 
 class treeMenu extends sfMenu{
+    /**
+     * @see sfMenu::isAllowed()
+     */
 	public function isAllowed(){
 		return true;
 	}
+	
+	/**
+	 * @see sfMenu::renderHtml()
+	 */
 	public function renderHtml(){
 		if($this->isRoot()){
 			$this->setRootDisplayed();

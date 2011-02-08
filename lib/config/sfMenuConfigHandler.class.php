@@ -42,6 +42,13 @@ class sfMenuConfigHandler extends sfYamlConfigHandler{
 	    
 	   return $data;
 	}
+	
+	/**
+	 * Retrieve data recurscively
+	 * @param array $row
+	 * @param string $key
+	 * @param string $parent
+	 */
 	protected function getChildData($row,$key, $parent='sfMenu'){
 		$data='';
 		$row['nom']=isset($row['nom'])?addslashes($row['nom']):'';
@@ -58,6 +65,11 @@ class sfMenuConfigHandler extends sfYamlConfigHandler{
     	}
     	return $data;
 	}
+	
+	/**
+	 * Convert variable as php string
+	 * @param mixed $variable
+	 */
 	public static function asPhp($variable)
 	  {
 	  

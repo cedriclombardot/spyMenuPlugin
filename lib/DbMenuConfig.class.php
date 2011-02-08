@@ -12,6 +12,9 @@ class DbMenuConfig{
 	
 	var $current=0;
 	
+	/**
+	 * Generate a menu
+	 */
 	public function execute($f=null){
 		   $this->getMenusFromDb();
 		   $mconfig=$this->menus['all'];			

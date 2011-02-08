@@ -140,6 +140,9 @@ class sfMenu {
 		return false;
 	}
 	
+	/**
+	 * Check if it'the searched level
+	 */
 	public function isRequestedLevel($url){
 		return $this->getUrl()==$url;
 	}
@@ -173,6 +176,10 @@ class sfMenu {
 		$this->cssId=$id;
 		return $this;
 	}
+	
+	/**
+	 * Retruen cssID for menu
+	 */
 	public function getCssId(){
 		return $this->cssId;
 	}
@@ -462,7 +469,9 @@ class sfMenu {
 		return $this->renderer;
 	}
 	
-	
+	/**
+	 * Render html for menu
+	 */
 	public function renderHtml(){
 		return $this->getRenderer()->renderHtml();
 	}

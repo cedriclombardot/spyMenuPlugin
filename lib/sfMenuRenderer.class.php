@@ -4,9 +4,14 @@ class sfMenuRenderer{
 	
 	protected $sfMenu;
 	
+	/**
+	 * Create renderer instance
+	 * @param sfMenu $sfMenu
+	 */
 	public function __construct(sfMenu $sfMenu){
 		$this->sfMenu=$sfMenu;
 	}
+	
 	/**
 	 * @return sfMenu
 	 */
@@ -14,14 +19,25 @@ class sfMenuRenderer{
 		return $this->sfMenu;
 	}
 	
+	/**
+	 * @return boolean return true to show icons
+	 */
 	public function displayIcons(){
 		return true;
 	}
 	
+	/**
+	 * Get the image tag
+	 * @param int $size to force image size
+	 */
 	public function getIcon($size=24){
 		return image_tag($this->getsfMenu()->getIconPath(),array('width'=>$size));
 	}
 	
+	/**
+	 * Check if url is the current called
+	 * @param string $url
+	 */
     public function isActive($url=null){
         $context=sfContext::getInstance();
         if(is_null($url))
